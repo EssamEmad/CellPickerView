@@ -7,4 +7,6 @@ CellPickerView is an iOS UI library written in Swift that enables the user to ch
 ##TODO
 - [X] Basic functionality
 - [ ] Animation
+- [ ] Support custom cell width and spacing
+- [ ] Support multiple lines
 - [ ] Create Pod
