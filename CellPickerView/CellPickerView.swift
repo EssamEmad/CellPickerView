@@ -24,13 +24,9 @@ public class CellPickerView: UIView {
             if let old = selectedButton {
                 if !canSelectMultiple && old != newValue{
                     //Deselect the older one
-                    old.isButtonSelected = false
+                    selectCell(old, isSelected: false, withAnimation: nil)
                 }
             }
-        }
-        
-        didSet{
-            selectedButton?.isButtonSelected = true
         }
         
     }
@@ -71,6 +67,7 @@ public class CellPickerView: UIView {
     
     //Sending an animation as a parameter instead of nil will override the default animation
     func selectCell(cell: CellButton, isSelected selected: Bool, withAnimation animation: CellSelectionAnimation?){
+        selectedButton = cell
         cell.isButtonSelected = selected
         func flipState(){
             cell.titleLabel?.textColor = selected ? selecedTextColor : unselectedTextColor
@@ -122,12 +119,13 @@ public class CellPickerView: UIView {
         var oldFrame = CGRect(x: 0, y: 0, width: 0, height: self.frame.height)
         for button in buttons{
             button.frame = CGRect(x: oldFrame.maxX, y: 0, width: buttonWidth, height: self.frame.height)
+            button.titleLabel?.textColor = unselectedTextColor
+            button.backgroundColor = unselectedBackgroundStateColor
             oldFrame = button.frame
             button.addTarget(self, action: #selector(onButtonClicked), forControlEvents: .TouchUpInside)
             self.addSubview(button)
             
         }
-        
     }
     
     
