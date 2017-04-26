@@ -12,13 +12,5 @@ class CellButton: UIButton {
     
     
     //MARK:- properties
-    var isButtonSelected:Bool = false{
-        didSet{
-            self.backgroundColor = isButtonSelected ? selectedStateColor : unselectedStateColor
-        }
-    }
-    
-    @IBInspectable var selectedStateColor = UIColor.blueColor()
-    @IBInspectable var unselectedStateColor = UIColor.whiteColor()    
-    
+    var isButtonSelected:Bool = false
 }
