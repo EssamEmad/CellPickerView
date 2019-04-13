@@ -14,6 +14,7 @@
 		CEAE1E9322625BDE003639F1 /* CellButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAE1E8E22625BDE003639F1 /* CellButton.swift */; };
 		CEAE1E9422625BDE003639F1 /* CellPickerView.h in Headers */ = {isa = PBXBuildFile; fileRef = CEAE1E8F22625BDE003639F1 /* CellPickerView.h */; };
 		CEAE1E9522625BDE003639F1 /* CellPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAE1E9022625BDE003639F1 /* CellPickerView.swift */; };
+		CEAE1EF0226295DC003639F1 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAE1EEF226295DC003639F1 /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +39,7 @@
 		CEAE1E8E22625BDE003639F1 /* CellButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellButton.swift; sourceTree = "<group>"; };
 		CEAE1E8F22625BDE003639F1 /* CellPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellPickerView.h; sourceTree = "<group>"; };
 		CEAE1E9022625BDE003639F1 /* CellPickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellPickerView.swift; sourceTree = "<group>"; };
+		CEAE1EEF226295DC003639F1 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,12 +61,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		56FC3499A427F16B107BDCBB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		CEAE1E5E22625461003639F1 = {
 			isa = PBXGroup;
 			children = (
 				CEAE1E6A22625461003639F1 /* CellPickerView */,
 				CEAE1E7522625461003639F1 /* CellPickerViewTests */,
 				CEAE1E6922625461003639F1 /* Products */,
+				56FC3499A427F16B107BDCBB /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -87,6 +97,7 @@
 				CEAE1E8D22625BDE003639F1 /* Protocols.swift */,
 				CEAE1E6B22625461003639F1 /* CellPickerView.h */,
 				CEAE1E6C22625461003639F1 /* Info.plist */,
+				CEAE1EEF226295DC003639F1 /* Constants.swift */,
 			);
 			path = CellPickerView;
 			sourceTree = "<group>";
@@ -137,6 +148,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = CEAE1E7F22625461003639F1 /* Build configuration list for PBXNativeTarget "CellPickerViewTests" */;
 			buildPhases = (
+				E42A8A6C10A8A87C5F9B169E /* [CP] Check Pods Manifest.lock */,
 				CEAE1E6D22625461003639F1 /* Sources */,
 				CEAE1E6E22625461003639F1 /* Frameworks */,
 				CEAE1E6F22625461003639F1 /* Resources */,
@@ -205,6 +217,31 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		E42A8A6C10A8A87C5F9B169E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CellPickerViewTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		CEAE1E6422625461003639F1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -213,6 +250,7 @@
 				CEAE1E9322625BDE003639F1 /* CellButton.swift in Sources */,
 				CEAE1E9522625BDE003639F1 /* CellPickerView.swift in Sources */,
 				CEAE1E9222625BDE003639F1 /* Protocols.swift in Sources */,
+				CEAE1EF0226295DC003639F1 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

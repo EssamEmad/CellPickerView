@@ -12,7 +12,7 @@ import UIKit
     case opacity
     case bubble
 }
-public class CellPickerView: UIView {
+open class CellPickerView: UIView {
     
     //MARK:- properties
     private var buttons: [CellButton]?
@@ -32,23 +32,27 @@ public class CellPickerView: UIView {
     }
     
     //Set this property to draw the buttons
-    var buttonNames:[String] = [String](){
+    public var buttonNames:[String] = [String](){
         didSet{
             buttons = [CellButton]()
             for name in buttonNames{
                 let button = CellButton()
+                button.selectedTextColor = selectedTextColor
+                button.unselectedTextColor = unselectedTextColor
+                button.selectedBackgroundColor = selectedBackgroundColor
+                button.unselectedBackgroundStateColor = unselectedBackgroundStateColor
                 button.setTitle(name, for: [.normal])
                 buttons?.append(button)
             }
             drawCellButtons(buttons: buttons!)
         }
     }
-    @IBInspectable var animationDuration: TimeInterval = 0.5
-    @IBInspectable var canSelectMultiple:Bool = false // Set to true if we can select multiple cells at the same time
-    @IBInspectable public var unselectedTextColor:UIColor = UIColor.white
-    @IBInspectable public var selecedTextColor:UIColor = UIColor.black
-    @IBInspectable public var selectedBackgroundColor = UIColor.blue
-    @IBInspectable public var unselectedBackgroundStateColor = UIColor.white
+    @IBInspectable public var animationDuration: TimeInterval = Constants.animationDuration
+    @IBInspectable public var canSelectMultiple:Bool = false // Set to true if we can select multiple cells at the same time
+    @IBInspectable public var unselectedTextColor:UIColor = Constants.unselectedTextColor
+    @IBInspectable public var selectedTextColor:UIColor = Constants.selectedTextColor
+    @IBInspectable public var selectedBackgroundColor = Constants.selectedBackgroundColor
+    @IBInspectable public var unselectedBackgroundStateColor = Constants.unselectedBackgroundStateColor
 
     public var selectionAnimation: CellSelectionAnimation = .bubble
     
@@ -69,39 +73,11 @@ public class CellPickerView: UIView {
     //Sending an animation as a parameter instead of nil will override the default animation
     func selectCell(cell: CellButton, isSelected selected: Bool, withAnimation animation: CellSelectionAnimation?){
         selectedButton = cell
-        cell.isButtonSelected = selected
         func flipState(){
-            cell.titleLabel?.textColor = selected ? selecedTextColor : unselectedTextColor
-            cell.backgroundColor = selected ? selectedBackgroundColor : unselectedBackgroundStateColor
+            
         }
-        if let animation = animation {
-            switch animation {
-            case .bubble:
-                let oldSize = cell.frame.size
-                UIView.animate(withDuration: animationDuration,
-                                           animations: {
-                                            cell.frame.size = CGSize(width: cell.frame.width + cell.frame.width / 10, height: cell.frame.height + cell.frame.height / 10)
-                                            flipState()
-                                            
-                    }, completion: { (_:Bool) in
-                        UIView.animate(withDuration: self.animationDuration, animations: {
-                            cell.frame.size = oldSize
-                        })
-                })
-            case .opacity:
-                UIView.animate(withDuration: animationDuration, animations: {
-                    cell.alpha = 0.5
-                    flipState()
-                    }, completion: { (_:Bool) in
-                        UIView.animate(withDuration: self.animationDuration, animations: {
-                            cell.alpha = 1.0
-                        })
-                })
-            }
+        cell.setSelected(selected: selected, withAnimation: animation, interval: animationDuration, completion: nil)
 
-        } else {
-            flipState()
-        }
     }
 
 
