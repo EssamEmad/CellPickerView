@@ -8,7 +8,7 @@
 
 import UIKit
 
-public enum CellSelectionAnimation{
+@objc public enum CellSelectionAnimation: Int{
     case opacity
     case bubble
 }
@@ -24,7 +24,7 @@ public class CellPickerView: UIView {
             if let old = selectedButton {
                 if !canSelectMultiple && old != newValue{
                     //Deselect the older one
-                    selectCell(old, isSelected: false, withAnimation: nil)
+                    selectCell(cell: old, isSelected: false, withAnimation: nil)
                 }
             }
         }
@@ -37,20 +37,21 @@ public class CellPickerView: UIView {
             buttons = [CellButton]()
             for name in buttonNames{
                 let button = CellButton()
-                button.setTitle(name, forState: .Normal)
+                button.setTitle(name, for: [.normal])
                 buttons?.append(button)
             }
-            drawCellButtons(buttons!)
+            drawCellButtons(buttons: buttons!)
         }
     }
-    @IBInspectable var animationDuration: NSTimeInterval = 0.5
+    @IBInspectable var animationDuration: TimeInterval = 0.5
     @IBInspectable var canSelectMultiple:Bool = false // Set to true if we can select multiple cells at the same time
-    @IBInspectable public var selectionAnimation: CellSelectionAnimation? = .bubble
-    @IBInspectable public var unselectedTextColor:UIColor = UIColor.whiteColor()
-    @IBInspectable public var selecedTextColor:UIColor = UIColor.blackColor()
-    @IBInspectable public var selectedBackgroundColor = UIColor.blueColor()
-    @IBInspectable public var unselectedBackgroundStateColor = UIColor.whiteColor()
+    @IBInspectable public var unselectedTextColor:UIColor = UIColor.white
+    @IBInspectable public var selecedTextColor:UIColor = UIColor.black
+    @IBInspectable public var selectedBackgroundColor = UIColor.blue
+    @IBInspectable public var unselectedBackgroundStateColor = UIColor.white
 
+    public var selectionAnimation: CellSelectionAnimation = .bubble
+    
     //MARK:- Public API
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -61,7 +62,7 @@ public class CellPickerView: UIView {
     
     public func selectCell(index:Int, isSelected selected: Bool, withAnimation animation: CellSelectionAnimation?) {
         if let cell = buttons?[index]{
-            selectCell(cell, isSelected: selected, withAnimation: animation)
+            selectCell(cell: cell, isSelected: selected, withAnimation: animation)
         }
     }
     
@@ -77,22 +78,22 @@ public class CellPickerView: UIView {
             switch animation {
             case .bubble:
                 let oldSize = cell.frame.size
-                UIView.animateWithDuration(animationDuration,
+                UIView.animate(withDuration: animationDuration,
                                            animations: {
                                             cell.frame.size = CGSize(width: cell.frame.width + cell.frame.width / 10, height: cell.frame.height + cell.frame.height / 10)
                                             flipState()
                                             
                     }, completion: { (_:Bool) in
-                        UIView.animateWithDuration(self.animationDuration, animations: { 
+                        UIView.animate(withDuration: self.animationDuration, animations: {
                             cell.frame.size = oldSize
                         })
                 })
             case .opacity:
-                UIView.animateWithDuration(animationDuration, animations: {
+                UIView.animate(withDuration: animationDuration, animations: {
                     cell.alpha = 0.5
                     flipState()
                     }, completion: { (_:Bool) in
-                        UIView.animateWithDuration(self.animationDuration, animations: {
+                        UIView.animate(withDuration: self.animationDuration, animations: {
                             cell.alpha = 1.0
                         })
                 })
@@ -105,8 +106,9 @@ public class CellPickerView: UIView {
 
 
     //MARK:- Actions
-    func onButtonClicked(sender: CellButton){
-        selectCell(sender, isSelected: !sender.isButtonSelected, withAnimation: self.selectionAnimation)
+    @objc func onButtonClicked(sender: CellButton){
+        selectCell(cell: sender, isSelected: !sender.isButtonSelected, withAnimation: self.selectionAnimation)
+        
         
     }
     
@@ -122,7 +124,7 @@ public class CellPickerView: UIView {
             button.titleLabel?.textColor = unselectedTextColor
             button.backgroundColor = unselectedBackgroundStateColor
             oldFrame = button.frame
-            button.addTarget(self, action: #selector(onButtonClicked), forControlEvents: .TouchUpInside)
+            button.addTarget(self, action: #selector(onButtonClicked), for: .touchUpInside)
             self.addSubview(button)
             
         }
