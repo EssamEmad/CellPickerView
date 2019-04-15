@@ -8,3 +8,7 @@
 
 import Foundation
 
+public protocol CellPickerViewDatasource: AnyObject{
+    func numberOfCells(inPicker picker:CellPickerView)->Int
+    func cell(forPicker picker: CellPickerView, atIndex index: Int)->CellAdapter
+}

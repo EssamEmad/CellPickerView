@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE83846322639D3000412D37 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE83846222639D3000412D37 /* Model.swift */; };
 		CEAE1E7222625461003639F1 /* CellPickerView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEAE1E6822625461003639F1 /* CellPickerView.framework */; };
 		CEAE1E7722625461003639F1 /* CellPickerViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAE1E7622625461003639F1 /* CellPickerViewTests.swift */; };
 		CEAE1E7922625461003639F1 /* CellPickerView.h in Headers */ = {isa = PBXBuildFile; fileRef = CEAE1E6B22625461003639F1 /* CellPickerView.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -28,6 +29,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		CE83846222639D3000412D37 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		CEAE1E6822625461003639F1 /* CellPickerView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CellPickerView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEAE1E6B22625461003639F1 /* CellPickerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CellPickerView.h; sourceTree = "<group>"; };
 		CEAE1E6C22625461003639F1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 				CEAE1E6B22625461003639F1 /* CellPickerView.h */,
 				CEAE1E6C22625461003639F1 /* Info.plist */,
 				CEAE1EEF226295DC003639F1 /* Constants.swift */,
+				CE83846222639D3000412D37 /* Model.swift */,
 			);
 			path = CellPickerView;
 			sourceTree = "<group>";
@@ -247,6 +250,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE83846322639D3000412D37 /* Model.swift in Sources */,
 				CEAE1E9322625BDE003639F1 /* CellButton.swift in Sources */,
 				CEAE1E9522625BDE003639F1 /* CellPickerView.swift in Sources */,
 				CEAE1E9222625BDE003639F1 /* Protocols.swift in Sources */,
