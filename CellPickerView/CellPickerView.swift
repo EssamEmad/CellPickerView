@@ -19,18 +19,6 @@ open class CellPickerView: UIView {
     private var buttons: [CellButton]?
     
     
-    private var selectedButton: CellButton?{
-        //We deselect the previously selected button if we can't select more than one button and the newly selected button is not the same as the old one
-        willSet{
-            if let old = selectedButton {
-                if !canSelectMultiple && old != newValue{
-                    //Deselect the older one
-                    selectCell(cell: old, isSelected: false, withAnimation: nil)
-                }
-            }
-        }
-        
-    }
     
     //Set this property to draw the buttons
     @IBInspectable public var animationDuration: TimeInterval = Constants.animationDuration
@@ -39,9 +27,8 @@ open class CellPickerView: UIView {
     @IBInspectable public var selectedTextColor:UIColor = Constants.selectedTextColor
     @IBInspectable public var selectedBackgroundColor = Constants.selectedBackgroundColor
     @IBInspectable public var unselectedBackgroundStateColor = Constants.unselectedBackgroundStateColor
-    @IBInspectable public var multiLine:Bool = false
-    
-    public var preferredWidth:CGFloat? // If set, the value is going to be used to calculate the width of the cell. Otherwise, the cell is as big as it can get
+    @IBInspectable public var spacing:CGFloat = 10 //Spacing between cells
+    public var maxWidth:CGFloat? // If set, the value is going to be used to calculate the width of the cell. Otherwise, the cell is as big as it can get
     
     open var selectionAnimation: CellSelectionAnimation = .bubble
     open weak var dataSource: CellPickerViewDatasource? {
@@ -66,14 +53,12 @@ open class CellPickerView: UIView {
     
     //Sending an animation as a parameter instead of nil will override the default animation
     func selectCell(cell: CellButton, isSelected selected: Bool, withAnimation animation: CellSelectionAnimation?){
-        selectedButton = cell
-        func flipState(){
-            
-        }
         cell.setSelected(selected: selected, withAnimation: animation, interval: animationDuration, completion: nil)
-
     }
 
+    func getSelected()->[Int]{
+        return buttons?.map{$0.isButtonSelected}.enumerated().filter{$1}.map{$0.offset} ?? []
+    }
 
     //MARK:- Actions
     @objc func onButtonClicked(sender: CellButton){
@@ -90,20 +75,30 @@ open class CellPickerView: UIView {
         self.subviews.forEach { $0.removeFromSuperview()}
         layoutIfNeeded()
         let count = dataSource.numberOfCells(inPicker: self)
-        var width = frame.width / CGFloat(count)
-        if let p = preferredWidth, width > p {
+        var totalInterSpacing: CGFloat = 0
+        if spacing > 0 {
+            if count > 2 {
+                totalInterSpacing = CGFloat(count-2) * spacing
+            } else if count == 2 {
+                totalInterSpacing = spacing
+            }
+        }
+        var width = (frame.width - totalInterSpacing) / CGFloat(count)
+        if let p = maxWidth, width > p {
             width = p
         }
         var oldFrame = CGRect(x: 0, y: 0, width: 0, height: frame.height)
+        buttons = [CellButton]()
         for i in 0..<count {
             let item = dataSource.cell(forPicker: self, atIndex: i)
             let button = CellButton()
-            button.frame = CGRect(x: oldFrame.maxX, y: 0, width: width, height: self.frame.height)
+            let xStart = oldFrame.maxX + (i == 0 ? 0 : spacing)
+            button.frame = CGRect(x: xStart, y: 0, width: width, height: self.frame.height)
             oldFrame = button.frame
             addSubview(button)
             button.addTarget(self, action: #selector(onButtonClicked), for: .touchUpInside)
             button.set(title: item.label , image: item.image)
-            
+            buttons?.append(button)
         }
     }
     

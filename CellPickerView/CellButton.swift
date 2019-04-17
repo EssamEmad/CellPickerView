@@ -80,7 +80,7 @@ class CellButton: UIButton {
         setTitle(title, for: .normal)
         setImage(image, for: .normal)
         layoutIfNeeded()
-        guard let _ = title, let _ = image else {return}
+        guard let _ = image else {return} // If there's no image, then there's no need to add custom insets
         let spacing:CGFloat = 10
         let imagePercentage:CGFloat = 0.6
         let imageSize = CGSize(width: bounds.width * imagePercentage, height: bounds.height * imagePercentage)
