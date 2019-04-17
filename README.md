@@ -1,12 +1,13 @@
 # CellPickerView
 A good UX customizable iOS picker with animation
 
-##Description
+## Description
 CellPickerView is an iOS UI library written in Swift that enables the user to choose one or more options through a smooth UX.
 
-##TODO
+## TODO
 - [X] Basic functionality
 - [ ] Animation
+- [ ] Borders
 - [ ] Support custom cell width and spacing
 - [ ] Support multiple lines
 - [ ] Create Pod
