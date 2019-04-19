@@ -18,5 +18,5 @@ open class CellAdapter {
 }
 
 open class CellPresentationAdapter{
-    
+  //TODO Implement
 }

@@ -24,7 +24,6 @@ class CellButton: UIButton {
     var selectedTextColor:UIColor = Constants.selectedTextColor
     var selectedBackgroundColor = Constants.selectedBackgroundColor
     var unselectedBackgroundStateColor = Constants.unselectedBackgroundStateColor
-    
     var isButtonSelected:Bool {
         return isSelectedState
     }
@@ -37,7 +36,6 @@ class CellButton: UIButton {
         super.init(coder: aDecoder)
         setup()
     }
-    
     func setSelected(selected: Bool){
         setSelected(selected: selected, withAnimation: nil, interval: nil, completion: nil)
     }
@@ -54,7 +52,7 @@ class CellButton: UIButton {
             case .bubble:
                 UIView.animate(withDuration: interval,
                                animations: {
-                                self.layer.zPosition = 1
+                                self.layer.zPosition = 2
                                 self.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
                                 flipState()
                                 
@@ -72,7 +70,11 @@ class CellButton: UIButton {
                         self.alpha = 1.0
                     })
                 })
+            case .noAnimation:
+                flipState()
             }
+        } else {
+            flipState()
         }
     }
     
@@ -94,5 +96,6 @@ class CellButton: UIButton {
         adjustsImageWhenHighlighted = false
         imageView?.contentMode = .scaleAspectFit
         titleLabel?.textAlignment = .center
+        isSelectedState = false
     }
 }
