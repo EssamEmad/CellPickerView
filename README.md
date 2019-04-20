@@ -1,3 +1,7 @@
+![Cocoapods Compatible](https://img.shields.io/cocoapods/v/CellPickerView.svg)
+![Platform](https://img.shields.io/cocoapods/p/CellPickerView.svg)
+![License](https://img.shields.io/cocoapods/l/CellPickerView.svg)
+
 # CellPickerView
 Swift UIView that enables the user to select options through a smooth UX.
 
