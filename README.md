@@ -9,6 +9,8 @@ CellPickerView is a UIView subclass that enables the user to select one or more 
 - [X] Animation
 - [X] Borders
 - [X] Distribute through Cocoapods
+- [ ] Complex Animations
+- [ ] Delegate for UI customization per cell
 
 ## Installation
 
@@ -67,4 +69,24 @@ override func viewDidLoad(){
     cellPicker.reloadData()
 }
 ```
-**Note: You must call reloadData after you customize the cellPickerView, if you set the dataSource before that, to enforce the new changes to propagate**
+**Note: You must call ```reloadData``` after you customize the cellPickerView, if you set the dataSource before that, to enforce the new changes to propagate**
+
+## Properties
+
+| Property                       | Description                                                                                                                                  | Default |
+|--------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------|---------|
+| animationDuration              | Duration of the selection animation. If selectionAnimation is set to .noAnimation this field is discarded                                    | 0.2     |
+| canSelectMultiple              | Set to true if the user can select multiple cells at the same time. If set to false, the selected cell will be deselected upon new selection | true    |
+| selectedTextColor              | The color of the label in the selected state                                                                                                 | white   |
+| unselectedTextColor            | The color of the label in the normal state                                                                                                   | black   |
+| selectedBackgroundColor        | Cell's background color in the selected state                                                                                                | blue    |
+| unselectedBackgroundStateColor | Cell's background color in the normal state                                                                                                  | white   |
+| maxWidth                       | If set, the value is going to be used to calculate the width of the cell. Otherwise, the cell is as big as it can get                        | nil     |
+| spacing                        | Spacing between cells. Note that the left-most and the right-most cells will have 0 spacing to the borders regardless of this value.         | 0       |
+| cellBorderWidth                | Width of the border of each cell                                                                                                             | 0       |
+| cellBorderColor                | Color of the cell's border                                                                                                                   | nil     |
+| cellCornerRadius               | Radius of the cell's corners                                                                                                                 | 0       |
+| selectionAnimation             | Animation performed on selection                                                                                                             | .bubble |
+
+## Contributions
+If you have any issues or want to request new features, please create an issue. If you'd like to contribute, please submit a pull-request.
