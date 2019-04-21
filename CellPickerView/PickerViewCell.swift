@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CellButton: UIButton {
+class PickerViewCell: UIView {
     
     
     //MARK:- properties
@@ -16,10 +16,14 @@ class CellButton: UIButton {
         didSet{
             //Change colors
             let color = isSelectedState ? selectedTextColor : unselectedTextColor
-            setTitleColor(color, for: .normal)
+            label?.textColor = color
             backgroundColor = isSelectedState ? selectedBackgroundColor : unselectedBackgroundStateColor
         }
     }
+    fileprivate var imageView: UIImageView?
+    fileprivate var label: UILabel?
+
+    weak var delegate: CellDelegate?
     var unselectedTextColor:UIColor = Constants.unselectedTextColor
     var selectedTextColor:UIColor = Constants.selectedTextColor
     var selectedBackgroundColor = Constants.selectedBackgroundColor
@@ -52,14 +56,14 @@ class CellButton: UIButton {
             case .bubble:
                 UIView.animate(withDuration: interval,
                                animations: {
-                                self.layer.zPosition = 2
+                                self.layer.zPosition = 1
                                 self.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
                                 flipState()
                                 
                 }, completion: { (_:Bool) in
                     UIView.animate(withDuration: interval, animations: {
                         self.transform = CGAffineTransform.identity
-                    })
+                    }, completion: {_ in self.layer.zPosition = 0})
                 })
             case .opacity:
                 UIView.animate(withDuration: interval, animations: {
@@ -78,24 +82,47 @@ class CellButton: UIButton {
         }
     }
     
+    @objc func onClick(sender: UITapGestureRecognizer) {
+        delegate?.didTap(cell: self)
+    }
     func set(title: String?, image: UIImage?){
-        setTitle(title, for: .normal)
-        setImage(image, for: .normal)
-        layoutIfNeeded()
-        guard let _ = image else {return} // If there's no image, then there's no need to add custom insets
-        let spacing:CGFloat = 10
-        let imagePercentage:CGFloat = 0.6
-        let imageSize = CGSize(width: bounds.width * imagePercentage, height: bounds.height * imagePercentage)
-        let titleHeight = titleLabel?.frame.height ?? 0
-        let imageRect = CGRect(x: bounds.midX - imageSize.width / 2, y: (bounds.height - spacing - titleHeight - imageSize.height) / 2, width: imageSize.width, height: imageSize.height)
-        titleEdgeInsets = UIEdgeInsets(top: imageRect.maxY + spacing, left: -titleLabel!.frame.maxX, bottom: 0, right: 0)
-        imageEdgeInsets = UIEdgeInsets(top: imageRect.minY, left: imageRect.minX, bottom: bounds.height - imageRect.maxY, right: imageView!.frame.maxX - imageRect.maxX )
+        
+        subviews.forEach {$0.removeFromSuperview()}
+        let imageView = image == nil ? nil : UIImageView()
+        self.imageView = imageView
+        imageView?.contentMode = .scaleAspectFit
+        if let image = image {
+            let imagePercentage:CGFloat = 0.5
+            let imageSize = CGSize(width: bounds.width * imagePercentage, height: bounds.height * imagePercentage)
+            let imageRect = CGRect(x: bounds.midX - imageSize.width / 2, y: (bounds.height - imageSize.height) / 2, width: imageSize.width, height: imageSize.height)
+            imageView!.image = image
+            addSubview(imageView!)
+            imageView!.frame = imageRect
+        }
+        
+        if let title = title {
+            let spacing:CGFloat = 10
+            let titleLabel = UILabel()
+            self.label = titleLabel
+            titleLabel.textAlignment = .center
+            titleLabel.text = title
+            addSubview(titleLabel)
+            let titleHeight:CGFloat = 15
+            if let iv = imageView {
+                //Move the imageView upwards a bit, then set the title label
+                let newImageRect = CGRect(x: iv.frame.minX, y: iv.frame.minY - spacing - titleHeight, width: iv.frame.width, height: iv.frame.height)
+                imageView?.frame = newImageRect
+                titleLabel.frame = CGRect(x: 0, y: newImageRect.maxY + spacing, width: frame.width, height: titleHeight)
+            } else {
+                titleLabel.frame = CGRect(x: 0, y: frame.midY - titleHeight / 2, width: frame.width, height: titleHeight)
+            }
+        }
     }
     
     private func setup(){
-        adjustsImageWhenHighlighted = false
-        imageView?.contentMode = .scaleAspectFit
-        titleLabel?.textAlignment = .center
         isSelectedState = false
+        //Add gesture recognizer
+        let tap = UITapGestureRecognizer(target: self, action: #selector(onClick(sender:)))
+        addGestureRecognizer(tap)
     }
 }
