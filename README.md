@@ -8,7 +8,7 @@ Swift UIView that enables the user to select options through a smooth UX.
 ## Description
 CellPickerView is a UIView subclass that enables the user to select one or more options from a list of options encapsulating the selection logic and the animations away. The cells could have text, icons, or both.
 
-## Preview
+## Example Preview
 ![Preview](https://github.com/EssamEmad/CellPickerView/blob/AddDocumentation/screenshots/preview.gif)
 ## TODO
 - [X] Basic functionality
