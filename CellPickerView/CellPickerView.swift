@@ -13,11 +13,12 @@ import UIKit
     case bubble
     case noAnimation
 }
-open class CellPickerView: UIView {
+open class CellPickerView: UIView, CellDelegate {
+    
 
     
     //MARK:- properties
-    private var buttons: [CellButton]? // We keep references to the drawn buttons as they aren't supposed to be plenty
+    private var buttons: [PickerViewCell]? // We keep references to the drawn buttons as they aren't supposed to be plenty
 
     @IBInspectable public var animationDuration: TimeInterval = Constants.animationDuration ///If selectionAnimation is set to .noAnimation this field is discarded
     @IBInspectable public var canSelectMultiple:Bool = false // Set to true if we can select multiple cells at the same time
@@ -63,7 +64,7 @@ open class CellPickerView: UIView {
     }
     
 
-    func selectCell(cell: CellButton, isSelected selected: Bool, withAnimation animation: CellSelectionAnimation?){
+    func selectCell(cell: PickerViewCell, isSelected selected: Bool, withAnimation animation: CellSelectionAnimation?){
         let selectedCells = getSelected()
         cell.setSelected(selected: selected, withAnimation: animation ?? selectionAnimation, interval: animationDuration, completion: nil)
         if !canSelectMultiple && !selectedCells.isEmpty {
@@ -83,11 +84,11 @@ open class CellPickerView: UIView {
     open func reloadData(){
         drawButtons()
     }
-    //MARK:- Actions
-    @objc func onButtonClicked(sender: CellButton){
-        selectCell(cell: sender, isSelected: !sender.isButtonSelected, withAnimation: self.selectionAnimation)
-        
-        
+    
+    //MARK:- CellDelegate
+    
+    func didTap(cell: PickerViewCell) {
+        selectCell(cell: cell, isSelected: !cell.isButtonSelected, withAnimation: self.selectionAnimation)
     }
     
     //MARK:- Helpers
@@ -116,15 +117,15 @@ open class CellPickerView: UIView {
             width = p
         }
         var oldFrame = CGRect(x: 0, y: 0, width: 0, height: frame.height)
-        buttons = [CellButton]()
+        buttons = [PickerViewCell]()
         for i in 0..<count {
             let item = dataSource.cell(forPicker: self, atIndex: i)
-            let button = CellButton()
+            let button = PickerViewCell()
             let xStart = oldFrame.maxX + (i == 0 ? 0 : spacing)
             button.frame = CGRect(x: xStart, y: 0, width: width, height: self.frame.height)
             oldFrame = button.frame
             addSubview(button)
-            button.addTarget(self, action: #selector(onButtonClicked), for: .touchUpInside)
+            button.delegate = self
             button.set(title: item.label , image: item.image)
             button.layer.borderColor = cellBorderColor
             button.layer.borderWidth = cellBorderWidth

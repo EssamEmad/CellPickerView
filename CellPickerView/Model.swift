@@ -10,8 +10,11 @@ import Foundation
 
 
 open class CellAdapter {
-    var image: UIImage?
-    var label: String?
+    open var image: UIImage?
+    open var label: String?
+    public init(){
+        
+    }
     public init(image: UIImage?, label: String?) {
         self.image = image; self.label = label
     }
