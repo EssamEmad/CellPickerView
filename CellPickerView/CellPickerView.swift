@@ -107,16 +107,18 @@ open class CellPickerView: UIView, CellDelegate {
         var totalInterSpacing: CGFloat = 0
         if spacing > 0 {
             if count > 2 {
-                totalInterSpacing = CGFloat(count-2) * spacing
+                totalInterSpacing = CGFloat(count-1) * spacing
             } else if count == 2 {
                 totalInterSpacing = spacing
             }
         }
         var width = (frame.width - totalInterSpacing) / CGFloat(count)
+        var start:CGFloat = 0
         if let p = maxWidth, width > p {
             width = p
+            start = (frame.width - p * CGFloat(count) - totalInterSpacing) / 2
         }
-        var oldFrame = CGRect(x: 0, y: 0, width: 0, height: frame.height)
+        var oldFrame = CGRect(x: start, y: 0, width: 0, height: frame.height)
         buttons = [PickerViewCell]()
         for i in 0..<count {
             let item = dataSource.cell(forPicker: self, atIndex: i)
@@ -126,6 +128,10 @@ open class CellPickerView: UIView, CellDelegate {
             oldFrame = button.frame
             addSubview(button)
             button.delegate = self
+            button.selectedTextColor = selectedTextColor
+            button.unselectedTextColor = unselectedTextColor
+            button.selectedBackgroundColor = selectedBackgroundColor
+            button.unselectedBackgroundStateColor = unselectedBackgroundStateColor
             button.set(title: item.label , image: item.image)
             button.layer.borderColor = cellBorderColor
             button.layer.borderWidth = cellBorderWidth
