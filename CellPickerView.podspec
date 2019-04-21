@@ -16,7 +16,7 @@ Pod::Spec.new do |spec|
   #
 
   spec.name         = "CellPickerView"
-  spec.version      = "0.0.1"
+  spec.version      = "0.0.2"
   spec.summary      = "Swift UIView that enables the user to select options through a smooth UX"
 
   # This description is used to generate tags and improve search results.
