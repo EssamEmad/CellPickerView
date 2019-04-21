@@ -8,12 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		CE83846322639D3000412D37 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE83846222639D3000412D37 /* Model.swift */; };
+		CEA44A63226D17DF00511DFF /* PickerViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA44A62226D17DF00511DFF /* PickerViewCell.swift */; };
 		CEAE1E7222625461003639F1 /* CellPickerView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEAE1E6822625461003639F1 /* CellPickerView.framework */; };
 		CEAE1E7722625461003639F1 /* CellPickerViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAE1E7622625461003639F1 /* CellPickerViewTests.swift */; };
 		CEAE1E7922625461003639F1 /* CellPickerView.h in Headers */ = {isa = PBXBuildFile; fileRef = CEAE1E6B22625461003639F1 /* CellPickerView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CEAE1E9222625BDE003639F1 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAE1E8D22625BDE003639F1 /* Protocols.swift */; };
-		CEAE1E9322625BDE003639F1 /* CellButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAE1E8E22625BDE003639F1 /* CellButton.swift */; };
-		CEAE1E9422625BDE003639F1 /* CellPickerView.h in Headers */ = {isa = PBXBuildFile; fileRef = CEAE1E8F22625BDE003639F1 /* CellPickerView.h */; };
 		CEAE1E9522625BDE003639F1 /* CellPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAE1E9022625BDE003639F1 /* CellPickerView.swift */; };
 		CEAE1EF0226295DC003639F1 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAE1EEF226295DC003639F1 /* Constants.swift */; };
 /* End PBXBuildFile section */
@@ -30,6 +29,7 @@
 
 /* Begin PBXFileReference section */
 		CE83846222639D3000412D37 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		CEA44A62226D17DF00511DFF /* PickerViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerViewCell.swift; sourceTree = "<group>"; };
 		CEAE1E6822625461003639F1 /* CellPickerView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CellPickerView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEAE1E6B22625461003639F1 /* CellPickerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CellPickerView.h; sourceTree = "<group>"; };
 		CEAE1E6C22625461003639F1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -38,7 +38,6 @@
 		CEAE1E7822625461003639F1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CEAE1E8C22625BDE003639F1 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CEAE1E8D22625BDE003639F1 /* Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
-		CEAE1E8E22625BDE003639F1 /* CellButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellButton.swift; sourceTree = "<group>"; };
 		CEAE1E8F22625BDE003639F1 /* CellPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellPickerView.h; sourceTree = "<group>"; };
 		CEAE1E9022625BDE003639F1 /* CellPickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellPickerView.swift; sourceTree = "<group>"; };
 		CEAE1EEF226295DC003639F1 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -92,7 +91,7 @@
 		CEAE1E6A22625461003639F1 /* CellPickerView */ = {
 			isa = PBXGroup;
 			children = (
-				CEAE1E8E22625BDE003639F1 /* CellButton.swift */,
+				CEA44A62226D17DF00511DFF /* PickerViewCell.swift */,
 				CEAE1E8F22625BDE003639F1 /* CellPickerView.h */,
 				CEAE1E9022625BDE003639F1 /* CellPickerView.swift */,
 				CEAE1E8C22625BDE003639F1 /* Info.plist */,
@@ -122,7 +121,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				CEAE1E7922625461003639F1 /* CellPickerView.h in Headers */,
-				CEAE1E9422625BDE003639F1 /* CellPickerView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -173,7 +171,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1010;
-				LastUpgradeCheck = 1010;
+				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = Hepta;
 				TargetAttributes = {
 					CEAE1E6722625461003639F1 = {
@@ -251,7 +249,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE83846322639D3000412D37 /* Model.swift in Sources */,
-				CEAE1E9322625BDE003639F1 /* CellButton.swift in Sources */,
+				CEA44A63226D17DF00511DFF /* PickerViewCell.swift in Sources */,
 				CEAE1E9522625BDE003639F1 /* CellPickerView.swift in Sources */,
 				CEAE1E9222625BDE003639F1 /* Protocols.swift in Sources */,
 				CEAE1EF0226295DC003639F1 /* Constants.swift in Sources */,

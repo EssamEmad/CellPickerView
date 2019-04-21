@@ -13,11 +13,12 @@ import UIKit
     case bubble
     case noAnimation
 }
-open class CellPickerView: UIView {
+open class CellPickerView: UIView, CellDelegate {
+    
 
     
     //MARK:- properties
-    private var buttons: [CellButton]? // We keep references to the drawn buttons as they aren't supposed to be plenty
+    private var buttons: [PickerViewCell]? // We keep references to the drawn buttons as they aren't supposed to be plenty
 
     @IBInspectable public var animationDuration: TimeInterval = Constants.animationDuration ///If selectionAnimation is set to .noAnimation this field is discarded
     @IBInspectable public var canSelectMultiple:Bool = false // Set to true if we can select multiple cells at the same time
@@ -63,7 +64,7 @@ open class CellPickerView: UIView {
     }
     
 
-    func selectCell(cell: CellButton, isSelected selected: Bool, withAnimation animation: CellSelectionAnimation?){
+    func selectCell(cell: PickerViewCell, isSelected selected: Bool, withAnimation animation: CellSelectionAnimation?){
         let selectedCells = getSelected()
         cell.setSelected(selected: selected, withAnimation: animation ?? selectionAnimation, interval: animationDuration, completion: nil)
         if !canSelectMultiple && !selectedCells.isEmpty {
@@ -83,11 +84,11 @@ open class CellPickerView: UIView {
     open func reloadData(){
         drawButtons()
     }
-    //MARK:- Actions
-    @objc func onButtonClicked(sender: CellButton){
-        selectCell(cell: sender, isSelected: !sender.isButtonSelected, withAnimation: self.selectionAnimation)
-        
-        
+    
+    //MARK:- CellDelegate
+    
+    func didTap(cell: PickerViewCell) {
+        selectCell(cell: cell, isSelected: !cell.isButtonSelected, withAnimation: self.selectionAnimation)
     }
     
     //MARK:- Helpers
@@ -106,25 +107,31 @@ open class CellPickerView: UIView {
         var totalInterSpacing: CGFloat = 0
         if spacing > 0 {
             if count > 2 {
-                totalInterSpacing = CGFloat(count-2) * spacing
+                totalInterSpacing = CGFloat(count-1) * spacing
             } else if count == 2 {
                 totalInterSpacing = spacing
             }
         }
         var width = (frame.width - totalInterSpacing) / CGFloat(count)
+        var start:CGFloat = 0
         if let p = maxWidth, width > p {
             width = p
+            start = (frame.width - p * CGFloat(count) - totalInterSpacing) / 2
         }
-        var oldFrame = CGRect(x: 0, y: 0, width: 0, height: frame.height)
-        buttons = [CellButton]()
+        var oldFrame = CGRect(x: start, y: 0, width: 0, height: frame.height)
+        buttons = [PickerViewCell]()
         for i in 0..<count {
             let item = dataSource.cell(forPicker: self, atIndex: i)
-            let button = CellButton()
+            let button = PickerViewCell()
             let xStart = oldFrame.maxX + (i == 0 ? 0 : spacing)
             button.frame = CGRect(x: xStart, y: 0, width: width, height: self.frame.height)
             oldFrame = button.frame
             addSubview(button)
-            button.addTarget(self, action: #selector(onButtonClicked), for: .touchUpInside)
+            button.delegate = self
+            button.selectedTextColor = selectedTextColor
+            button.unselectedTextColor = unselectedTextColor
+            button.selectedBackgroundColor = selectedBackgroundColor
+            button.unselectedBackgroundStateColor = unselectedBackgroundStateColor
             button.set(title: item.label , image: item.image)
             button.layer.borderColor = cellBorderColor
             button.layer.borderWidth = cellBorderWidth
